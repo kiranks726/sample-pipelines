@@ -2,10 +2,15 @@ name: Build & Test
 
 on:
   workflow_call:
+    inputs:
+      environment: 
+        required: true
+        type: string
 
 jobs:
   build:
     name: Build, Validate & Display Reports
+    environment: ${{ inputs.environment }}
     runs-on: ubuntu-latest
     permissions:
       id-token: write

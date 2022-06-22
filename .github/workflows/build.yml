@@ -43,12 +43,12 @@ jobs:
           print(sst_data['region'])"`
           echo "::set-output name=aws_region::$region"
 
-      # - name: Configure aws
-      #   uses: aws-actions/configure-aws-credentials@v1
-      #   with:
-      #     role-to-assume: ${{ secrets.AWS_ROLE }}
-      #     role-session-name: GithubCIActions
-      #     aws-region: ${{ steps.get_aws_region.outputs.aws_region }}
+      - name: Configure aws
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE }}
+          role-session-name: GithubCIActions
+          aws-region: ${{ steps.get_aws_region.outputs.aws_region }}
 
       # - name: Synthesize stack
       #   run: make build

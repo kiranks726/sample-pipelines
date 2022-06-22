@@ -1,12 +1,10 @@
 name: Deploy in QA or Prod
 
-# This enables to manually trigger the workflow on the Github action UI
 on:
   workflow_call:
     
 jobs:
   deploy:
-    name: Deploy in ${{ github.event.inputs.environment }}
     runs-on: ubuntu-latest
     environment: ${{ github.event.inputs.environment }}
     permissions:

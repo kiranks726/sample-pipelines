@@ -5,7 +5,6 @@ on:
 
 jobs:
   deploy-dev:
-    name: Deploy in Dev
     runs-on: ubuntu-latest
     permissions:
       id-token: write

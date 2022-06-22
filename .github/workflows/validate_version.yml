@@ -2,7 +2,7 @@ name: Validate version
 
 on:
   workflow_call:
-  
+
 jobs:
   validate-version:
     name: Validate Version
@@ -11,10 +11,10 @@ jobs:
     outputs:
       outcome: ${{ env.outcome }}
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
+      # - name: Checkout code
+      #   uses: actions/checkout@v3
+      #   with:
+      #     fetch-depth: 0
 
       - name: Check if version is in semantic format
         id: version_semantic

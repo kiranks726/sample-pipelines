@@ -1,5 +1,8 @@
 name: Validate version
 
+on:
+  workflow_call:
+  
 jobs:
   validate-version:
     name: Validate Version

@@ -1,5 +1,8 @@
 name: Tag version in Git
 
+on:
+  workflow_call:
+
 jobs:
   tag-version-git:
       name: Tag version in GIT

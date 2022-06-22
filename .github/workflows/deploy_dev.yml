@@ -7,7 +7,6 @@ jobs:
   deploy-dev:
     name: Deploy in Dev
     runs-on: ubuntu-latest
-    environment: dev
     permissions:
       id-token: write
       contents: read

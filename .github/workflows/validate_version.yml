@@ -2,6 +2,10 @@ name: Validate version
 
 on:
   workflow_call:
+    outputs:
+      outcome:
+        description: "Outcome of Validate version job"
+        value: ${{ jobs.validate-version.outputs.outcome }}
 
 jobs:
   validate-version:

@@ -9,6 +9,7 @@ on:
 
 jobs:
   validate-version:
+    name:
     runs-on: ubuntu-latest
     continue-on-error: true
     outputs:

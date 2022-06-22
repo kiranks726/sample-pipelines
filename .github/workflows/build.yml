@@ -5,6 +5,7 @@ on:
 
 jobs:
   build:
+    name: Build module
     runs-on: ubuntu-latest
     permissions:
       id-token: write

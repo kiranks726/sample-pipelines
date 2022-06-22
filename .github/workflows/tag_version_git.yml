@@ -1,10 +1,11 @@
-name: Tag version in Git
+name: Tag version in git
 
 on:
   workflow_call:
 
 jobs:
   tag-version-git:
+    name: Tag module
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code

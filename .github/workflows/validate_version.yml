@@ -9,7 +9,7 @@ on:
 
 jobs:
   validate-version:
-    name:
+    name: Version module
     runs-on: ubuntu-latest
     continue-on-error: true
     outputs:

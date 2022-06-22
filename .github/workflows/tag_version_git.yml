@@ -7,8 +7,8 @@ jobs:
   tag-version-git:
       name: Tag version in GIT
       runs-on: ubuntu-latest
-      #if: ${{ needs.deploy-dev.result == 'success' && needs.validate-version.outputs.outcome == 'success' }}
-      #needs: [deploy-dev, validate-version]
+      if: ${{ needs.deploy-dev.result == 'success' && needs.validate-version.outputs.outcome == 'success' }}
+      needs: [deploy-dev, validate-version]
       steps:
         - name: Checkout code
           uses: actions/checkout@v3

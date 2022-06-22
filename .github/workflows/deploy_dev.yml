@@ -2,11 +2,15 @@ name: Deploy in dev
 
 on:
   workflow_call:
+    inputs:
+      environment:
+        description: Environment to be deployed
+        required: true
 
 jobs:
   deploy-dev:
     name: Dev module
-    environment: dev
+    environment: ${{ inputs.environment }}
     runs-on: ubuntu-latest
     permissions:
       id-token: write

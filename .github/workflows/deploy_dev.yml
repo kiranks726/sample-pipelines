@@ -80,8 +80,8 @@ jobs:
           role-session-name: GithubCDActions
           aws-region: ${{ steps.get_aws_region.outputs.aws_region }}
 
-      # - name: Deploy stack
-      #   run: make deploy stage="dev"
+      - name: Deploy stack
+        run: make deploy stage="dev"
 
       - name: Add action summary
         env:

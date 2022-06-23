@@ -80,8 +80,8 @@ jobs:
 
       - name: Check oidc token
         run: |
-          echo "ACTIONS_ID_TOKEN_REQUEST_URL is: $ACTIONS_ID_TOKEN_REQUEST_URL" 
-          echo "ACTIONS_ID_TOKEN_REQUEST_TOKEN is: $ACTIONS_ID_TOKEN_REQUEST_TOKEN"
+          curl -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" $ACTIONS_ID_TOKEN_REQUEST_URL
+
 
       # - name: Configure aws
       #   uses: aws-actions/configure-aws-credentials@v1

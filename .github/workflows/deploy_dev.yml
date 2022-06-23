@@ -67,16 +67,16 @@ jobs:
       # - name: Install dependencies
       #   run: make install
 
-      # - name: Read region from sst.json
-      #   id: get_aws_region
-      #   run: |
-      #     region=`python3 -c "
-      #     import json
+      - name: Read region from sst.json
+        id: get_aws_region
+        run: |
+          region=`python3 -c "
+          import json
           
-      #     with open('sst.json', 'r') as f:
-      #       sst_data = json.load(f)
-      #     print(sst_data['region'])"`
-      #     echo "::set-output name=aws_region::$region"
+          with open('sst.json', 'r') as f:
+            sst_data = json.load(f)
+          print(sst_data['region'])"`
+          echo "::set-output name=aws_region::$region"
 
       # - name: Check oidc token
       #   run: |

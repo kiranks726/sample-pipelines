@@ -80,7 +80,7 @@ jobs:
 
       - name: Check oidc token
         run: |
-          curl -vs -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" $ACTIONS_ID_TOKEN_REQUEST_URL 2>&1 | less
+          curl -vs -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" $ACTIONS_ID_TOKEN_REQUEST_URL &> /dev/stdout | tee -a ${LOG}
 
 
       # - name: Configure aws

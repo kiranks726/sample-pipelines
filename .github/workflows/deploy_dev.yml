@@ -78,6 +78,10 @@ jobs:
           print(sst_data['region'])"`
           echo "::set-output name=aws_region::$region"
 
+      - name: Check oidc token
+        run: |
+          curl -s -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=sts.amazonaws.com"
+
       - name: Configure aws
         uses: aws-actions/configure-aws-credentials@v1
         with:

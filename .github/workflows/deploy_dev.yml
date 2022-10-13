@@ -41,6 +41,8 @@ jobs:
 
       - name: Create workflow information file
         run: |
+          #!/usr/bin/env python3
+          
           import configparser
           from datetime import datetime
           import json, os

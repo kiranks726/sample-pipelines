@@ -22,42 +22,63 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+        
+      - name: Read region and service name from sst.json
+        id: get_metadata
+        run: |
+          metadata=`python3 -c "
+          import json
+          
+          with open('sst.json', 'r') as f:
+            sst_data = json.load(f)
+          print(sst_data['name'],sst_data['region'])"`
+          name=$(echo "$metadata" | cut -d ' ' -f1)
+          region=$(echo "$metadata" | cut -d ' ' -f2)
+          echo "SERVICE_NAME=$name" >> $GITHUB_ENV
+          echo "AWS_REGION=$region" >> $GITHUB_ENV
+          echo "${{ env.SERVICE_NAME }}"
+          echo "${{ env.AWS_REGION }}"
 
-      # - name: Create workflow information file
-      #   run: |
-      #     import configparser
-      #     from datetime import datetime
-      #     import json, os
+      - name: Create workflow information file
+        run: |
+          import configparser
+          from datetime import datetime
+          import json, os
 
-      #     read_version = configparser.ConfigParser()
-      #     read_version.read("VERSION.ini")
-      #     version = read_version.get('APP', 'version')
+          read_version = configparser.ConfigParser()
+          read_version.read("VERSION.ini")
+          version = read_version.get('APP', 'version')
 
-      #     commit_sha = os.getenv("GITHUB_SHA")
-      #     short_hash = commit_sha[:7]
-      #     run_id = os.getenv("GITHUB_RUN_ID")
-      #     dev_version = f"{version}-{short_hash}-{run_id}"
+          commit_sha = os.getenv("GITHUB_SHA")
+          short_hash = commit_sha[:7]
+          run_id = os.getenv("GITHUB_RUN_ID")
+          dev_version = f"{version}-{short_hash}-{run_id}"
+          
+          name = os.getenv("SERVICE_NAME")
+          print("name:", name)
+          region = os.getenv("AWS_REGION")
+          print("region:", region)
 
-      #     pipeline_details ={
-      #       "name" : os.getenv("GITHUB_WORKFLOW"),
-      #       "date" : datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
-      #       "version" : dev_version,
-      #       "runId" :run_id,                
-      #       "branch" : os.getenv("GITHUB_REF_NAME")
-      #     }
+          pipeline_details ={
+            "name" : os.getenv("GITHUB_WORKFLOW"),
+            "date" : datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
+            "version" : dev_version,
+            "runId" :run_id,                
+            "branch" : os.getenv("GITHUB_REF_NAME")
+          }
             
-      #     json_object = json.dumps(pipeline_details, indent = 4)
-      #     workspace_path = os.getenv("GITHUB_WORKSPACE")
+          json_object = json.dumps(pipeline_details, indent = 4)
+          workspace_path = os.getenv("GITHUB_WORKSPACE")
             
-      #     with open(f"{workspace_path}/backend/mainmodule/workflow_info.json", "w") as outfile:
-      #         outfile.write(json_object)
+          with open(f"{workspace_path}/backend/mainmodule/workflow_info.json", "w") as outfile:
+            outfile.write(json_object)
 
-      #   shell: python
+          shell: python
 
-      - name: Setup Nodejs ${{ env.NODE_VERSION }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ env.NODE_VERSION }}
+      #- name: Setup Nodejs ${{ env.NODE_VERSION }}
+        #uses: actions/setup-node@v3
+        #with:
+          #node-version: ${{ env.NODE_VERSION }}
 
       # - name: Setup Go ${{ env.GO_VERSION }}
       #   uses: actions/setup-go@v3
@@ -67,16 +88,6 @@ jobs:
       # - name: Install dependencies
       #   run: make install
 
-      - name: Read region from sst.json
-        id: get_aws_region
-        run: |
-          region=`python3 -c "
-          import json
-          
-          with open('sst.json', 'r') as f:
-            sst_data = json.load(f)
-          print(sst_data['region'])"`
-          echo "::set-output name=aws_region::$region"
 
       # - name: Check oidc token
       #   run: |
@@ -84,12 +95,12 @@ jobs:
       #     curl https://token.actions.githubusercontent.com &> /dev/stdout | tee -a ${LOG}
 
 
-      - name: Configure aws
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          role-to-assume: ${{ secrets.AWS_DEPLOY_ROLE }}
-          role-session-name: GithubCDActions
-          aws-region: ${{ steps.get_aws_region.outputs.aws_region }}
+      #- name: Configure aws
+        #uses: aws-actions/configure-aws-credentials@v1
+        #with:
+          #role-to-assume: ${{ secrets.AWS_DEPLOY_ROLE }}
+          #role-session-name: GithubCDActions
+          #aws-region: ${{ steps.get_aws_region.outputs.aws_region }}
 
       # - name: Deploy stack
       #   run: make deploy stage="dev"

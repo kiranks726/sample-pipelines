@@ -41,8 +41,6 @@ jobs:
 
       - name: Create workflow information file
         run: |
-          #!/usr/bin/env python3
-          
           import configparser
           from datetime import datetime
           import json, os
@@ -56,10 +54,10 @@ jobs:
           run_id = os.getenv("GITHUB_RUN_ID")
           dev_version = f"{version}-{short_hash}-{run_id}"
           
-          name = os.getenv("SERVICE_NAME")
-          print("name:", name)
-          region = os.getenv("AWS_REGION")
-          print("region:", region)
+          # name = os.getenv("SERVICE_NAME")
+          # print("name:", name)
+          # region = os.getenv("AWS_REGION")
+          # print("region:", region)
 
           pipeline_details ={
             "name" : os.getenv("GITHUB_WORKFLOW"),

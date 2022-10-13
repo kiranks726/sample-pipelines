@@ -85,7 +85,7 @@ jobs:
         with:
           role-to-assume: ${{ secrets.AWS_DEPLOY_ROLE }}
           role-session-name: GithubCDActions
-          aws-region: echo "${{ env.AWS_REGION }}"
+          aws-region: ${{ env.AWS_REGION }}
 
       - name: Deploy stack
         run: make deploy stage="dev"

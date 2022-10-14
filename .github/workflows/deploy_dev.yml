@@ -88,7 +88,7 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
 
       - name: Deploy stack
-        run: make deploy STAGE=qa
+        run: make deploy STAGE=uat
 
       - name: Add action summary
         env:
